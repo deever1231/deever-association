@@ -84,3 +84,45 @@ h1 { margin: 22px 0 18px; font-size: clamp(40px, 6vw, 72px); line-height: 1.04; 
 @keyframes heroImageSlide { 0% { opacity: 0; transform: scale(1.04); } 8% { opacity: 1; } 30% { opacity: 1; } 42% { opacity: 0; transform: scale(1.11); } 100% { opacity: 0; transform: scale(1.11); } }
 @media (max-width: 980px) { .hero-with-slider { min-height: 560px; } .hero-text-panel { max-width: 900px; padding: 0; border-radius: 0; background: transparent; border: 0; backdrop-filter: none; box-shadow: none; } }
 
+
+.training-layout { display: grid; grid-template-columns: 1.35fr .65fr; gap: 28px; align-items: start; }
+.training-main { display: grid; gap: 24px; }
+.training-facts { margin-top: 20px; }
+.training-facts strong { color: var(--blue-900); }
+.training-facts p { margin: 8px 0 0; }
+.process-list { display: grid; gap: 16px; }
+.process-list > div { display: grid; grid-template-columns: 46px 1fr; gap: 14px; padding: 16px; border: 1px solid var(--line); border-radius: 20px; background: var(--blue-50); }
+.process-list span { width: 42px; height: 42px; border-radius: 50%; background: var(--blue-700); color: white; display: grid; place-items: center; font-weight: 900; }
+.process-list h3 { margin: 0 0 6px; color: var(--blue-900); }
+.process-list p { margin: 0; color: var(--muted); }
+.training-map { min-height: 420px; border-radius: 26px; background: linear-gradient(135deg, #d8eafb, #ffffff); border: 1px solid var(--line); display: grid; place-items: center; text-align: center; padding: 24px; box-shadow: var(--shadow); }
+@media (max-width: 980px) {
+  .training-layout { grid-template-columns: 1fr; }
+  .location-card { grid-template-columns: 1fr !important; min-height: auto !important; }
+  .large-map { min-height: 360px !important; }
+}
+@media (max-width: 640px) {
+  .container { width: min(100% - 28px, 1180px); }
+  .header { position: relative; }
+  .header-inner { gap: 14px; align-items: flex-start; }
+  .logo { font-size: 15px; }
+  .logo-mark { width: 34px; height: 34px; border-radius: 11px; }
+  .actions { width: 100%; display: grid; grid-template-columns: 1fr 1fr; }
+  .button { width: 100%; padding: 12px 14px; font-size: 14px; }
+  .hero { padding: 52px 0; }
+  .hero-with-slider { min-height: 520px; }
+  .hero-overlay { background: linear-gradient(90deg, rgba(247,251,255,.92) 0%, rgba(247,251,255,.72) 100%); }
+  h1 { font-size: clamp(34px, 11vw, 46px); letter-spacing: -1px; }
+  .lead { font-size: 16px; line-height: 1.55; }
+  .section, .page-hero { padding: 46px 0; }
+  .section-title { font-size: 30px; }
+  .section-subtitle { font-size: 16px; }
+  .card { padding: 18px; border-radius: 22px; }
+  .card-image { border-radius: 18px; }
+  .logo-wall { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .member-logo { height: 82px; font-size: 13px; }
+  .training-map { min-height: 320px; }
+  .process-list > div { grid-template-columns: 38px 1fr; padding: 14px; }
+  .process-list span { width: 36px; height: 36px; }
+  .footer { padding: 36px 0; text-align: center; }
+}
