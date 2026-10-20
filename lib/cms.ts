@@ -10,10 +10,6 @@ import {
 
 const LANGUAGE = process.env.NEXT_PUBLIC_ERXES_LANGUAGE ?? "mn";
 
-function sortByOrder<T extends { order?: number }>(items: T[]): T[] {
-  return [...items].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
-}
-
 export async function fetchPages() {
   const { data } = await getClient().query({
     query: GET_PAGES,
@@ -58,7 +54,7 @@ export async function fetchHeaderMenu() {
     variables: { language: LANGUAGE },
     context: { fetchOptions: { revalidate: 60 } },
   });
-  return sortByOrder(data.cpMenus ?? []);
+  return data.cpMenus ?? [];
 }
 
 export async function fetchFooterMenu() {
@@ -67,5 +63,5 @@ export async function fetchFooterMenu() {
     variables: { language: LANGUAGE },
     context: { fetchOptions: { revalidate: 60 } },
   });
-  return sortByOrder(data.cpMenus ?? []);
+  return data.cpMenus ?? [];
 }
