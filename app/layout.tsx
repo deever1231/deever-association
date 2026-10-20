@@ -1,7 +1,6 @@
 ﻿import type { Metadata } from "next";
 import Link from "next/link";
 import "./globals.css";
-import { fetchHeaderMenu, fetchFooterMenu } from "@/lib/cms";
 
 export const metadata: Metadata = {
   title: "Дээвэр холбоо",
@@ -14,32 +13,29 @@ function toHref(url: string) {
   return url.startsWith("http") ? url : url;
 }
 
-type MenuItem = {
-  _id: string;
-  label: string;
-  url: string;
-  order: number;
-};
+const headerMenu = [
+  { _id: "1", label: "Нүүр", url: "/", order: 1 },
+  { _id: "2", label: "Бидний тухай", url: "/about", order: 2 },
+  { _id: "3", label: "Гишүүнчлэл", url: "/membership", order: 3 },
+  { _id: "4", label: "Сургалт", url: "/training", order: 4 },
+  { _id: "5", label: "Мэдээ", url: "/news", order: 5 },
+  { _id: "6", label: "Арга хэмжээ", url: "/events", order: 6 },
+  { _id: "7", label: "Холбоо барих", url: "/contact", order: 7 },
+];
 
-function normalizeMenu(items: Array<Record<string, unknown>>): MenuItem[] {
-  return items.map((item) => ({
-    _id: String(item._id ?? ""),
-    label: String(item.label ?? ""),
-    url: String(item.url ?? "/"),
-    order: typeof item.order === "number" ? item.order : 0,
-  }));
-}
+const footerMenu = [
+  { _id: "1", label: "Нүүр", url: "/", order: 1 },
+  { _id: "2", label: "Бидний тухай", url: "/about", order: 2 },
+  { _id: "3", label: "Холбоо барих", url: "/contact", order: 3 },
+];
 
-async function Header() {
-  const rawMenu = (await fetchHeaderMenu()) as Array<Record<string, unknown>>;
-  const menu = normalizeMenu(rawMenu);
-  const sorted = [...menu].sort((a, b) => a.order - b.order);
+function Header() {
   return (
     <header className="header">
       <div className="container header-inner">
         <Link href="/" className="logo"><span className="logo-mark" /> Дээвэр холбоо</Link>
         <nav className="nav">
-          {sorted.map((item) => (
+          {headerMenu.map((item) => (
             <Link key={item._id} href={toHref(item.url)}>{item.label}</Link>
           ))}
         </nav>
@@ -52,10 +48,7 @@ async function Header() {
   );
 }
 
-async function Footer() {
-  const rawMenu = (await fetchFooterMenu()) as Array<Record<string, unknown>>;
-  const menu = normalizeMenu(rawMenu);
-  const sorted = [...menu].sort((a, b) => a.order - b.order);
+function Footer() {
   return (
     <footer className="footer">
       <div className="container footer-grid">
@@ -66,7 +59,7 @@ async function Footer() {
         </div>
         <div>
           <h4>Цэс</h4>
-          {sorted.map((item) => (
+          {footerMenu.map((item) => (
             <p key={item._id}><Link href={toHref(item.url)}>{item.label}</Link></p>
           ))}
         </div>
