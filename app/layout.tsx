@@ -14,15 +14,17 @@ function toHref(url: string) {
   return url.startsWith("http") ? url : url;
 }
 
+type MenuItem = { _id: string; label: string; url: string; order?: number };
+
 async function Header() {
-  const menu = await fetchHeaderMenu();
-  const sorted = [...menu].sort((a: { order: number }, b: { order: number }) => a.order - b.order);
+  const menu: MenuItem[] = await fetchHeaderMenu();
+  const sorted = [...menu].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
   return (
     <header className="header">
       <div className="container header-inner">
         <Link href="/" className="logo"><span className="logo-mark" /> Дээвэр холбоо</Link>
         <nav className="nav">
-          {sorted.map((item: { _id: string; label: string; url: string }) => (
+          {sorted.map((item) => (
             <Link key={item._id} href={toHref(item.url)}>{item.label}</Link>
           ))}
         </nav>
@@ -36,8 +38,8 @@ async function Header() {
 }
 
 async function Footer() {
-  const menu = await fetchFooterMenu();
-  const sorted = [...menu].sort((a: { order: number }, b: { order: number }) => a.order - b.order);
+  const menu: MenuItem[] = await fetchFooterMenu();
+  const sorted = [...menu].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
   return (
     <footer className="footer">
       <div className="container footer-grid">
@@ -48,7 +50,7 @@ async function Footer() {
         </div>
         <div>
           <h4>Цэс</h4>
-          {sorted.map((item: { _id: string; label: string; url: string }) => (
+          {sorted.map((item) => (
             <p key={item._id}><Link href={toHref(item.url)}>{item.label}</Link></p>
           ))}
         </div>
