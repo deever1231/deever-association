@@ -30,7 +30,6 @@ export const GET_POSTS = gql`
       _id
       title
       slug
-      description
       excerpt
       createdAt
     }
@@ -44,7 +43,6 @@ export const GET_POST_CONTENT = gql`
       title
       slug
       content
-      description
       excerpt
       createdAt
     }
