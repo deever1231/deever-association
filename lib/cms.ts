@@ -1,14 +1,18 @@
 import { getClient } from "./apollo-client";
 import {
   GET_PAGES,
-  GET_PAGE_BY_SLUG,
+  GET_PAGE_CONTENT,
   GET_POSTS,
-  GET_POST_BY_SLUG,
+  GET_POST_CONTENT,
   GET_HEADER_MENU,
   GET_FOOTER_MENU,
 } from "./graphql/queries";
 
 const LANGUAGE = process.env.NEXT_PUBLIC_ERXES_LANGUAGE ?? "mn";
+
+function sortByOrder<T extends { order?: number }>(items: T[]): T[] {
+  return [...items].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+}
 
 export async function fetchPages() {
   const { data } = await getClient().query({
@@ -16,16 +20,17 @@ export async function fetchPages() {
     variables: { language: LANGUAGE },
     context: { fetchOptions: { revalidate: 60 } },
   });
-  return data.cpPages;
+  return data.cpPages ?? [];
 }
 
 export async function fetchPageBySlug(slug: string) {
   const { data } = await getClient().query({
-    query: GET_PAGE_BY_SLUG,
-    variables: { slug, language: LANGUAGE },
+    query: GET_PAGE_CONTENT,
+    variables: { language: LANGUAGE },
     context: { fetchOptions: { revalidate: 60 } },
   });
-  return data.cpPage;
+  const pages = data.cpPages ?? [];
+  return pages.find((page: { slug: string }) => page.slug === slug) ?? null;
 }
 
 export async function fetchPosts() {
@@ -34,16 +39,17 @@ export async function fetchPosts() {
     variables: { language: LANGUAGE },
     context: { fetchOptions: { revalidate: 60 } },
   });
-  return data.cpPosts;
+  return data.cpPosts ?? [];
 }
 
 export async function fetchPostBySlug(slug: string) {
   const { data } = await getClient().query({
-    query: GET_POST_BY_SLUG,
-    variables: { slug, language: LANGUAGE },
+    query: GET_POST_CONTENT,
+    variables: { language: LANGUAGE },
     context: { fetchOptions: { revalidate: 60 } },
   });
-  return data.cpPost;
+  const posts = data.cpPosts ?? [];
+  return posts.find((post: { slug: string }) => post.slug === slug) ?? null;
 }
 
 export async function fetchHeaderMenu() {
@@ -52,7 +58,7 @@ export async function fetchHeaderMenu() {
     variables: { language: LANGUAGE },
     context: { fetchOptions: { revalidate: 60 } },
   });
-  return data.cpMenus;
+  return sortByOrder(data.cpMenus ?? []);
 }
 
 export async function fetchFooterMenu() {
@@ -61,5 +67,5 @@ export async function fetchFooterMenu() {
     variables: { language: LANGUAGE },
     context: { fetchOptions: { revalidate: 60 } },
   });
-  return data.cpMenus;
+  return sortByOrder(data.cpMenus ?? []);
 }
