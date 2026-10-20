@@ -1,21 +1,15 @@
-﻿import { fetchPageBySlug } from "@/lib/cms";
+﻿import { CmsContent } from "@/components/CmsContent";
 
-export default async function MembershipPage() {
-  const page = await fetchPageBySlug("membership");
+export default function MembershipPage() {
   return (
     <main>
       <section className="page-hero">
         <div className="container">
           <span className="eyebrow">Гишүүнчлэл</span>
-          <h1>{page?.name ?? "Гишүүнчлэл"}</h1>
-          <p className="lead">{page?.description ?? ""}</p>
+          <h1>Гишүүнчлэл</h1>
         </div>
       </section>
-      <section className="section">
-        <div className="container">
-          <div className="prose" dangerouslySetInnerHTML={{ __html: page?.content ?? "" }} />
-        </div>
-      </section>
+      <CmsContent slug="membership" />
     </main>
   );
 }
