@@ -11,9 +11,9 @@ export const GET_PAGES = gql`
   }
 `;
 
-export const GET_PAGE_BY_SLUG = gql`
-  query GetPageBySlug($slug: String!, $language: String) {
-    cpPage(slug: $slug, language: $language) {
+export const GET_PAGE_CONTENT = gql`
+  query GetPageContent($language: String) {
+    cpPages(language: $language) {
       _id
       name
       slug
@@ -37,9 +37,9 @@ export const GET_POSTS = gql`
   }
 `;
 
-export const GET_POST_BY_SLUG = gql`
-  query GetPostBySlug($slug: String!, $language: String) {
-    cpPost(slug: $slug, language: $language) {
+export const GET_POST_CONTENT = gql`
+  query GetPostContent($language: String) {
+    cpPosts(language: $language, status: published) {
       _id
       title
       slug
