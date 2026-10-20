@@ -1,21 +1,19 @@
 ﻿import Link from "next/link";
-import { fetchPageBySlug } from "@/lib/cms";
+import { CmsContent } from "@/components/CmsContent";
 
-export default async function TrainingPage() {
-  const page = await fetchPageBySlug("training");
+export default function TrainingPage() {
   return (
     <main>
       <section className="page-hero">
         <div className="container">
           <span className="eyebrow">Сургалт</span>
-          <h1>{page?.name ?? "Сургалт"}</h1>
-          <p className="lead">{page?.description ?? ""}</p>
+          <h1>Сургалт</h1>
         </div>
       </section>
+      <CmsContent slug="training" />
       <section className="section">
         <div className="container">
-          <div className="prose" dangerouslySetInnerHTML={{ __html: page?.content ?? "" }} />
-          <div className="grid grid-3" style={{ marginTop: 32 }}>
+          <div className="grid grid-3">
             <div className="card">
               <h3>Брокерын эрх олгох сургалт</h3>
               <p>2026.10.08 · Танхим · 250,000₮</p>
