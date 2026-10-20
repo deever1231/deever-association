@@ -1,19 +1,8 @@
 ﻿import Link from "next/link";
-import { fetchPageBySlug, fetchPosts } from "@/lib/cms";
 import { CardGrid } from "@/components/CardGrid";
+import { CmsContent } from "@/components/CmsContent";
 
-export default async function HomePage() {
-  const [homePage, posts] = await Promise.all([
-    fetchPageBySlug("home"),
-    fetchPosts(),
-  ]);
-
-  const newsItems = posts.slice(0, 3).map((post: { _id: string; title: string; excerpt?: string; slug: string; createdAt?: string }) => ({
-    title: post.title,
-    description: post.excerpt ?? "",
-    href: `/news/${post.slug}`,
-  }));
-
+export default function HomePage() {
   return (
     <main>
       <section className="hero">
@@ -34,16 +23,11 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
-      <section className="section">
-        <div className="container">
-          <h2 className="section-title">{homePage?.name ?? "Тавтай морилно уу"}</h2>
-          <div className="prose" dangerouslySetInnerHTML={{ __html: homePage?.content ?? "" }} />
-        </div>
-      </section>
+      <CmsContent slug="home" />
       <section className="section soft">
         <div className="container">
           <h2 className="section-title">Шинэ мэдээ</h2>
-          <CardGrid items={newsItems} />
+          <CardGrid items={[]} />
         </div>
       </section>
     </main>
