@@ -14,11 +14,26 @@ function toHref(url: string) {
   return url.startsWith("http") ? url : url;
 }
 
-type MenuItem = { _id: string; label: string; url: string; order?: number };
+type MenuItem = {
+  _id: string;
+  label: string;
+  url: string;
+  order?: number;
+};
+
+function toMenuItem(item: Partial<MenuItem> & { _id: string; label: string; url: string }): MenuItem {
+  return {
+    _id: item._id,
+    label: item.label,
+    url: item.url,
+    order: typeof item.order === "number" ? item.order : 0,
+  };
+}
 
 async function Header() {
-  const menu: MenuItem[] = await fetchHeaderMenu();
-  const sorted = [...menu].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+  const rawMenu = await fetchHeaderMenu();
+  const menu = (rawMenu as Array<Partial<MenuItem> & { _id: string; label: string; url: string }>).map(toMenuItem);
+  const sorted = [...menu].sort((a, b) => a.order - b.order);
   return (
     <header className="header">
       <div className="container header-inner">
@@ -38,8 +53,9 @@ async function Header() {
 }
 
 async function Footer() {
-  const menu: MenuItem[] = await fetchFooterMenu();
-  const sorted = [...menu].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+  const rawMenu = await fetchFooterMenu();
+  const menu = (rawMenu as Array<Partial<MenuItem> & { _id: string; label: string; url: string }>).map(toMenuItem);
+  const sorted = [...menu].sort((a, b) => a.order - b.order);
   return (
     <footer className="footer">
       <div className="container footer-grid">
