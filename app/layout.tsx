@@ -18,21 +18,21 @@ type MenuItem = {
   _id: string;
   label: string;
   url: string;
-  order?: number;
+  order: number;
 };
 
-function toMenuItem(item: Partial<MenuItem> & { _id: string; label: string; url: string }): MenuItem {
-  return {
-    _id: item._id,
-    label: item.label,
-    url: item.url,
+function normalizeMenu(items: Array<Record<string, unknown>>): MenuItem[] {
+  return items.map((item) => ({
+    _id: String(item._id ?? ""),
+    label: String(item.label ?? ""),
+    url: String(item.url ?? "/"),
     order: typeof item.order === "number" ? item.order : 0,
-  };
+  }));
 }
 
 async function Header() {
-  const rawMenu = await fetchHeaderMenu();
-  const menu = (rawMenu as Array<Partial<MenuItem> & { _id: string; label: string; url: string }>).map(toMenuItem);
+  const rawMenu = (await fetchHeaderMenu()) as Array<Record<string, unknown>>;
+  const menu = normalizeMenu(rawMenu);
   const sorted = [...menu].sort((a, b) => a.order - b.order);
   return (
     <header className="header">
@@ -53,8 +53,8 @@ async function Header() {
 }
 
 async function Footer() {
-  const rawMenu = await fetchFooterMenu();
-  const menu = (rawMenu as Array<Partial<MenuItem> & { _id: string; label: string; url: string }>).map(toMenuItem);
+  const rawMenu = (await fetchFooterMenu()) as Array<Record<string, unknown>>;
+  const menu = normalizeMenu(rawMenu);
   const sorted = [...menu].sort((a, b) => a.order - b.order);
   return (
     <footer className="footer">
