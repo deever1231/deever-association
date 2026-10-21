@@ -10,7 +10,7 @@ type PageContent = {
   content?: string;
 };
 
-export function CmsContent({ slug }: { slug: string }) {
+export function CmsContent({ slug, fallback }: { slug: string; fallback?: React.ReactNode }) {
   const [page, setPage] = useState<PageContent | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -41,7 +41,13 @@ export function CmsContent({ slug }: { slug: string }) {
         });
         const data = await res.json();
         const pages = data?.data?.cpPages ?? [];
-        const found = pages.find((p: PageContent) => p.slug === slug);
+        // Try multiple slug patterns: exact match, page-* prefix, or original slug
+        const patterns = [slug, `page-${slug}`, slug.replace(/^page-/, '')];
+        let found = null;
+        for (const pattern of patterns) {
+          found = pages.find((p: PageContent) => p.slug === pattern);
+          if (found) break;
+        }
         setPage(found ?? null);
       } catch {
         setPage(null);
@@ -53,8 +59,7 @@ export function CmsContent({ slug }: { slug: string }) {
   }, [slug]);
 
   if (loading) return <section className="section"><div className="container">Ачаалж байна...</div></section>;
-  if (!page) return <section className="section"><div className="container">Контент олдсонгүй.</div></section>;
-
+  if (!page) return <>{fallback}</>;
   return (
     <section className="section">
       <div className="container">
