@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { CmsContent } from "@/components/CmsContent";
+import { NewsList } from "@/components/NewsList";
 
 export default function NewsPage() {
   return (
@@ -29,6 +30,7 @@ export default function NewsPage() {
           </div>
         </section>
       } />
+      <NewsList />
     </main>
   );
 }
