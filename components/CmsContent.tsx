@@ -41,11 +41,14 @@ export function CmsContent({ slug, fallback }: { slug: string; fallback?: React.
         });
         const data = await res.json();
         const pages = data?.data?.cpPages ?? [];
-        // Try multiple slug patterns: exact match, page-* prefix, or original slug
-        const patterns = [slug, `page-${slug}`, slug.replace(/^page-/, '')];
+        // Skip corrupted pages (legacy seeds with "????" text from encoding issues)
+        const isCorrupt = (p: PageContent) =>
+          [p.name, p.description, p.content].some((t) => t && t.includes("??"));
+        // Try multiple slug patterns, preferring the page-* prefix seeds
+        const patterns = [`page-${slug}`, slug, slug.replace(/^page-/, "")];
         let found = null;
         for (const pattern of patterns) {
-          found = pages.find((p: PageContent) => p.slug === pattern);
+          found = pages.find((p: PageContent) => p.slug === pattern && !isCorrupt(p));
           if (found) break;
         }
         setPage(found ?? null);
