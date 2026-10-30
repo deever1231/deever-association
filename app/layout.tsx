@@ -14,34 +14,44 @@ function toHref(url: string) {
 }
 
 const headerMenu = [
-  { _id: "1", label: "Нүүр", url: "/", order: 1 },
-  { _id: "2", label: "Бидний тухай", url: "/about", order: 2 },
-  { _id: "3", label: "Гишүүнчлэл", url: "/membership", order: 3 },
-  { _id: "4", label: "Сургалт", url: "/training", order: 4 },
-  { _id: "5", label: "Мэдээ", url: "/news", order: 5 },
-  { _id: "6", label: "Арга хэмжээ", url: "/events", order: 6 },
-  { _id: "7", label: "Холбоо барих", url: "/contact", order: 7 },
+  { _id: "1", label: "Нүүр", url: "/" },
+  { _id: "2", label: "Бидний тухай", url: "/about" },
+  { _id: "3", label: "Гишүүнчлэл", url: "/membership" },
+  { _id: "4", label: "Сургалт", url: "/training" },
+  { _id: "5", label: "Мэдээ", url: "/news" },
+  { _id: "6", label: "Арга хэмжээ", url: "/events" },
+  { _id: "7", label: "Холбоо барих", url: "/contact" },
 ];
 
 const footerMenu = [
-  { _id: "1", label: "Нүүр", url: "/", order: 1 },
-  { _id: "2", label: "Бидний тухай", url: "/about", order: 2 },
-  { _id: "3", label: "Холбоо барих", url: "/contact", order: 3 },
+  { _id: "1", label: "Нүүр", url: "/" },
+  { _id: "2", label: "Бидний тухай", url: "/about" },
+  { _id: "3", label: "Холбоо барих", url: "/contact" },
 ];
 
 function Header() {
   return (
-    <header className="header">
-      <div className="container header-inner">
-        <Link href="/" className="logo"><span className="logo-mark" /> Дээвэр холбоо</Link>
-        <nav className="nav">
-          {headerMenu.map((item) => (
-            <Link key={item._id} href={toHref(item.url)}>{item.label}</Link>
-          ))}
-        </nav>
-        <div className="actions">
-          <Link className="button secondary" href="/login">Нэвтрэх</Link>
-          <Link className="button" href="/join">Гишүүн болох</Link>
+    <header>
+      <div className="topbar">
+        <div className="container topbar-inner">
+          <span><a href="mailto:info@deever.mn">info@deever.mn</a> · <a href="tel:+97670000000">+976 7000-0000</a></span>
+          <div className="topbar-social">
+            <a href="https://facebook.com" target="_blank" rel="noopener">Facebook</a>
+          </div>
+        </div>
+      </div>
+      <div className="header">
+        <div className="container header-inner">
+          <Link href="/" className="logo"><span className="logo-mark" /> Дээвэр холбоо</Link>
+          <nav className="nav">
+            {headerMenu.map((item) => (
+              <Link key={item._id} href={toHref(item.url)}>{item.label}</Link>
+            ))}
+          </nav>
+          <div className="actions">
+            <Link className="button secondary" href="/login">Нэвтрэх</Link>
+            <Link className="button" href="/join">Гишүүн болох</Link>
+          </div>
         </div>
       </div>
     </header>
@@ -51,28 +61,9 @@ function Header() {
 function Footer() {
   return (
     <footer className="footer">
-      <div className="container footer-grid">
-        <div>
-          <h3>Дээвэр холбоо</h3>
-          <p>Цэнхэр-цагаан брэндтэй, зөөлөн хөдөлгөөнтэй erxes CMS portal.</p>
-          <p><a href="mailto:info@deever.mn">info@deever.mn</a> · <a href="tel:+97670000000">+976 7000-0000</a></p>
-        </div>
-        <div>
-          <h4>Цэс</h4>
-          {footerMenu.map((item) => (
-            <p key={item._id}><Link href={toHref(item.url)}>{item.label}</Link></p>
-          ))}
-        </div>
-        <div>
-          <h4>Систем</h4>
-          <p><Link href="/member">Гишүүний кабинет</Link></p>
-          <p><Link href="/admin">Админы удирдлага</Link></p>
-        </div>
-        <div>
-          <h4>Холбоо</h4>
-          <p>Facebook</p>
-          <p>Map</p>
-        </div>
+      <div className="container">
+        <h3>Дээвэр холбоо</h3>
+        <p><a href="mailto:info@deever.mn">info@deever.mn</a> · <a href="tel:+97670000000">+976 7000-0000</a> · <a href="https://facebook.com" target="_blank" rel="noopener">Facebook</a></p>
       </div>
     </footer>
   );
