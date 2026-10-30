@@ -23,6 +23,12 @@ export default function TrainingPage() {
               <p>2026.10.08 · Танхим · 250,000₮</p>
               <Link className="button secondary" href="/training/detail">Дэлгэрэнгүй</Link>
             </div>
+            <div className="card">
+              <div className="card-image"></div>
+              <h3>Миний сургалтын цонх</h3>
+              <p>Бүртгүүлсэн сургалтын процесс, төлбөр, байршил, материал</p>
+              <Link className="button secondary" href="/training/window">Нэвтрэх</Link>
+            </div>
           </div>
         </div>
       </section>
