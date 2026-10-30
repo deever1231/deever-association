@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { CmsContent } from "@/components/CmsContent";
 
 export default function EventsPage() {
   return (
@@ -12,15 +11,13 @@ export default function EventsPage() {
           <Link className="button" href="/login">Гишүүнээр нэвтрэх</Link>
         </div>
       </section>
-      <CmsContent slug="events" fallback={
-        <section className="section">
-          <div className="container grid grid-3">
-            <div className="card"><h3>Уулзалт</h3><p>Гишүүн байгууллагуудад зориулсан хаалттай уулзалт. Нэвтэрсний дараа дэлгэрэнгүй харагдана.</p></div>
-            <div className="card"><h3>Хурал</h3><p>Гишүүдийн хурал, хэлэлцүүлгийн мэдээлэл. Нэвтрэх шаардлагатай.</p></div>
-            <div className="card"><h3>Форум</h3><p>Салбарын форум, хамтын ажиллагааны арга хэмжээ. Нэвтэрсэн гишүүдэд харагдана.</p></div>
-          </div>
-        </section>
-      } />
+      <section className="section">
+        <div className="container grid grid-3">
+          <div className="card"><h3>Уулзалт</h3><p>Гишүүн байгууллагуудад зориулсан хаалттай уулзалт. Нэвтэрсний дараа дэлгэрэнгүй харагдана.</p></div>
+          <div className="card"><h3>Хурал</h3><p>Гишүүдийн хурал, хэлэлцүүлгийн мэдээлэл. Нэвтрэх шаардлагатай.</p></div>
+          <div className="card"><h3>Форум</h3><p>Салбарын форум, хамтын ажиллагааны арга хэмжээ. Нэвтэрсэн гишүүдэд харагдана.</p></div>
+        </div>
+      </section>
     </main>
   );
 }
