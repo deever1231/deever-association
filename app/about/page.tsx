@@ -1,6 +1,4 @@
-﻿import { CmsContent } from "@/components/CmsContent";
-
-export default function AboutPage() {
+﻿export default function AboutPage() {
   return (
     <main>
       <section className="page-hero">
@@ -10,22 +8,20 @@ export default function AboutPage() {
           <p className="lead">Салбарын ёс зүй, стандарт, мэдлэг, хамтын ажиллагааг зөөлөн боловч мэргэжлийн байдлаар хөгжүүлнэ.</p>
         </div>
       </section>
-      <CmsContent slug="about" fallback={
-        <section className="section">
-          <div className="container grid grid-2">
-            <article className="card">
-              <span className="eyebrow">Зорилго</span>
-              <h3>Холбооны зорилго</h3>
-              <p>Үл хөдлөх хөрөнгийн бизнес эрхлэгчдийг нэгтгэж, салбарын мэргэжлийн түвшинг дээшлүүлэх.</p>
-            </article>
-            <article className="card">
-              <span className="eyebrow">Зорилт</span>
-              <h3>Холбооны зорилт</h3>
-              <p>Гишүүнчлэл, сургалт, ёс зүй, стандарт, салбарын мэдээлэл судалгааг олон нийтэд хүргэх.</p>
-            </article>
-          </div>
-        </section>
-      } />
+      <section className="section">
+        <div className="container grid grid-2">
+          <article className="card">
+            <span className="eyebrow">Зорилго</span>
+            <h3>Холбооны зорилго</h3>
+            <p>Үл хөдлөх хөрөнгийн бизнес эрхлэгчдийг нэгтгэж, салбарын мэргэжлийн түвшинг дээшлүүлэх.</p>
+          </article>
+          <article className="card">
+            <span className="eyebrow">Зорилт</span>
+            <h3>Холбооны зорилт</h3>
+            <p>Гишүүнчлэл, сургалт, ёс зүй, стандарт, салбарын мэдээлэл судалгааг олон нийтэд хүргэх.</p>
+          </article>
+        </div>
+      </section>
       <section className="section soft">
         <div className="container">
           <h2 className="section-title">Удирдлагын бүтэц</h2>
